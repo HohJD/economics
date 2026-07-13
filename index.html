@@ -142,6 +142,27 @@
       gap: 10px;
       flex-wrap: wrap;
     }
+    .shift-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 10px;
+    }
+    .shift-btn {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .shift-btn.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
 
     .section { margin-top: 24px; }
     .grid-2 {
@@ -206,6 +227,7 @@
       <button class="nav-btn active" data-slide="0">1. Demand curve</button>
       <button class="nav-btn" data-slide="1">2. Supply curve</button>
       <button class="nav-btn" data-slide="2">3. Market curve</button>
+      <button class="nav-btn" data-slide="3">4. Curve shifts</button>
     </div>
 
     <section class="slide active" data-index="0">
@@ -341,6 +363,45 @@
       </div>
       <div class="slide-footer">
         <button class="ghost-btn" data-prev>← Prev</button>
+        <button class="primary-btn" data-next>Next slide →</button>
+      </div>
+    </section>
+
+    <section class="slide" data-index="3">
+      <div class="slide-card">
+        <div class="slide-copy">
+          <div class="eyebrow">Slide 4 · Curve shifts</div>
+          <h2>Now watch the whole curve move</h2>
+          <p>This is the key difference: when something other than price changes, the whole curve shifts. The old curve is dashed and the new one is solid.</p>
+          <div class="shift-controls">
+            <button class="shift-btn active" data-shift="d+">☀️ Demand right</button>
+            <button class="shift-btn" data-shift="d-">❄️ Demand left</button>
+            <button class="shift-btn" data-shift="s+">⚙️ Supply right</button>
+            <button class="shift-btn" data-shift="s-">🥛 Supply left</button>
+          </div>
+          <ul class="bullet-list">
+            <li>Demand shifts when tastes, income, substitutes, or expectations change.</li>
+            <li>Supply shifts when technology, input costs, or taxes change.</li>
+            <li>After a shift, the market finds a new equilibrium price and quantity.</li>
+          </ul>
+        </div>
+        <div class="slide-visual">
+          <svg viewBox="0 0 760 420" role="img" aria-label="Demand and supply curve shifts">
+            <line x1="70" y1="370" x2="730" y2="370" stroke="#c9c4b4" stroke-width="1.5" />
+            <line x1="70" y1="370" x2="70" y2="30" stroke="#c9c4b4" stroke-width="1.5" />
+            <text x="726" y="394" font-size="13" fill="#6b6a5f" text-anchor="end">Quantity</text>
+            <text x="30" y="24" font-size="13" fill="#6b6a5f">Price</text>
+            <path id="shiftOld" stroke="#4338a8" stroke-width="1.5" stroke-dasharray="6 6" fill="none" opacity="0" />
+            <path id="shiftNew" stroke="#4338a8" stroke-width="3" fill="none" />
+            <path id="shiftSupply" stroke="#1a6b4a" stroke-width="2.2" fill="none" opacity="0.25" />
+            <text id="shiftLabel" font-size="15" font-weight="600" fill="#4338a8"></text>
+            <text id="shiftSupplyLabel" font-size="15" font-weight="600" fill="#1a6b4a">S</text>
+          </svg>
+          <div class="insight" id="insight4">Demand shifts right when buyers want more at every price.</div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <button class="ghost-btn" data-prev>← Prev</button>
         <button class="primary-btn" data-next disabled>Next slide →</button>
       </div>
     </section>
@@ -378,11 +439,14 @@
   <script>
     let currentSlide = 0;
     let manualPrice = 50;
+    let dShift = 0;
+    let sShift = 0;
+    let activeShift = 'd+';
     const X0 = 70, X1 = 730, Y0 = 370, Y1 = 40, QMAX = 112, PMAX = 112;
     const x = q => X0 + (q / QMAX) * (X1 - X0);
     const y = p => Y0 - (p / PMAX) * (Y0 - Y1);
-    const qd = p => 100 - p;
-    const qs = p => p;
+    const qd = p => 100 - p + dShift;
+    const qs = p => p + sShift;
 
     function path(fn) {
       const pts = [];
@@ -401,7 +465,7 @@
       const QS = Math.max(0, qs(P));
       const eqP = 50;
       const eqQ = 50;
-      const insightEl = currentSlide === 0 ? $('insight') : currentSlide === 1 ? $('insight2') : $('insight3');
+      const insightEl = currentSlide === 0 ? $('insight') : currentSlide === 1 ? $('insight2') : currentSlide === 2 ? $('insight3') : $('insight4');
 
       if (currentSlide === 0) {
         $('dCurve').setAttribute('d', path(qd));
@@ -437,6 +501,38 @@
         $('gapLine').setAttribute('opacity', 0);
         $('gapText').setAttribute('opacity', 0);
         insightEl.textContent = `At RM ${P}, sellers offer about ${Math.round(QS)} units. Move the slider to see how quantity supplied changes along the supply curve.`;
+      } else if (currentSlide === 3) {
+        const baselineDemand = p => 100 - p;
+        const baselineSupply = p => p;
+        $('shiftOld').setAttribute('opacity', 0.55);
+        $('shiftSupply').setAttribute('opacity', 0.2);
+        if (activeShift === 'd+' || activeShift === 'd-') {
+          $('shiftOld').setAttribute('d', path(baselineDemand));
+          $('shiftOld').setAttribute('stroke', '#4338a8');
+          $('shiftNew').setAttribute('d', path(qd));
+          $('shiftNew').setAttribute('stroke', '#4338a8');
+          $('shiftSupply').setAttribute('d', path(baselineSupply));
+          $('shiftSupply').setAttribute('stroke', '#1a6b4a');
+          $('shiftLabel').setAttribute('x', 540);
+          $('shiftLabel').setAttribute('y', 90);
+          $('shiftLabel').textContent = activeShift === 'd+' ? 'D → D′ (right)' : 'D → D′ (left)';
+          $('shiftLabel').setAttribute('fill', '#4338a8');
+          $('shiftSupplyLabel').setAttribute('fill', '#1a6b4a');
+          insightEl.textContent = activeShift === 'd+' ? 'A rise in demand means buyers want more at every price, so the whole demand curve shifts right.' : 'A fall in demand means buyers want less at every price, so the whole demand curve shifts left.';
+        } else {
+          $('shiftOld').setAttribute('d', path(baselineSupply));
+          $('shiftOld').setAttribute('stroke', '#1a6b4a');
+          $('shiftNew').setAttribute('d', path(qs));
+          $('shiftNew').setAttribute('stroke', '#1a6b4a');
+          $('shiftSupply').setAttribute('d', path(baselineSupply));
+          $('shiftSupply').setAttribute('stroke', '#1a6b4a');
+          $('shiftLabel').setAttribute('x', 540);
+          $('shiftLabel').setAttribute('y', 90);
+          $('shiftLabel').textContent = activeShift === 's+' ? 'S → S′ (right)' : 'S → S′ (left)';
+          $('shiftLabel').setAttribute('fill', '#1a6b4a');
+          $('shiftSupplyLabel').setAttribute('fill', '#1a6b4a');
+          insightEl.textContent = activeShift === 's+' ? 'Better technology lets sellers offer more at every price, so the whole supply curve shifts right.' : 'Higher input costs reduce what sellers can offer at every price, so the whole supply curve shifts left.';
+        }
       } else {
         $('dCurve').setAttribute('d', path(qd));
         $('sCurve').setAttribute('d', path(qs));
@@ -493,13 +589,23 @@
       document.querySelectorAll('.slide').forEach((slide, i) => slide.classList.toggle('active', i === index));
       document.querySelectorAll('.nav-btn').forEach((btn, i) => btn.classList.toggle('active', i === index));
       document.querySelectorAll('[data-prev]').forEach(btn => btn.disabled = index === 0);
-      document.querySelectorAll('[data-next]').forEach(btn => btn.disabled = index === 2);
+      document.querySelectorAll('[data-next]').forEach(btn => btn.disabled = index === 3);
       renderGraph();
     }
 
     document.querySelectorAll('.nav-btn').forEach(btn => btn.addEventListener('click', () => showSlide(Number(btn.dataset.slide))));
-    document.querySelectorAll('[data-next]').forEach(btn => btn.addEventListener('click', () => showSlide(Math.min(2, currentSlide + 1))));
+    document.querySelectorAll('[data-next]').forEach(btn => btn.addEventListener('click', () => showSlide(Math.min(3, currentSlide + 1))));
     document.querySelectorAll('[data-prev]').forEach(btn => btn.addEventListener('click', () => showSlide(Math.max(0, currentSlide - 1))));
+
+    document.querySelectorAll('.shift-btn').forEach(btn => btn.addEventListener('click', () => {
+      activeShift = btn.dataset.shift;
+      if (activeShift === 'd+') { dShift = 18; sShift = 0; }
+      else if (activeShift === 'd-') { dShift = -18; sShift = 0; }
+      else if (activeShift === 's+') { dShift = 0; sShift = 18; }
+      else { dShift = 0; sShift = -18; }
+      document.querySelectorAll('.shift-btn').forEach(b => b.classList.toggle('active', b === btn));
+      renderGraph();
+    }));
 
     ['price', 'price2', 'price3'].forEach(id => {
       $(id).addEventListener('input', e => {
