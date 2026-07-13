@@ -164,6 +164,35 @@
       border-color: var(--ink);
     }
 
+    .drag-hint { font-size: 0.82rem; color: var(--muted); margin-top: 6px; }
+    svg circle.draggable { cursor: grab; }
+    svg circle.draggable:active { cursor: grabbing; }
+    svg circle[opacity="0"] { pointer-events: none; }
+
+    .eq-compare { margin-top: 10px; }
+    .eq-compare-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .eq-stat {
+      background: #f4f1e6;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 8px 12px;
+      flex: 1;
+      min-width: 150px;
+    }
+    .eq-stat.new { background: #eef2fb; border-color: #d2ccf1; }
+    .eq-tag {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .eq-stat strong { font-size: 1.02rem; }
+    .eq-arrow { font-size: 1.3rem; color: var(--muted); }
+    .eq-delta { margin-top: 8px; font-weight: 600; color: var(--hot); font-size: 0.92rem; }
+
     .section { margin-top: 24px; }
     .grid-2 {
       display: grid;
@@ -266,12 +295,13 @@
             <line id="pLine" x1="70" x2="730" stroke="#a9a48f" stroke-width="1" stroke-dasharray="3 5" />
             <line id="gapLine" stroke="#c7502a" stroke-width="4" stroke-linecap="round" opacity="0" />
             <text id="gapText" font-size="13" font-weight="600" fill="#c7502a" text-anchor="middle" opacity="0"></text>
-            <circle id="qdDot" r="6" fill="#4338a8"></circle>
-            <circle id="qsDot" r="6" fill="#1a6b4a"></circle>
-            <circle id="eqDot" r="7" fill="#22251f"></circle>
+            <circle id="qdDot" class="draggable" r="7" fill="#4338a8"></circle>
+            <circle id="qsDot" class="draggable" r="7" fill="#1a6b4a"></circle>
+            <circle id="eqDot" class="draggable" r="8" fill="#22251f"></circle>
             <text id="eqText" font-size="13" font-weight="600" fill="#22251f"></text>
           </svg>
           <div class="insight" id="insight">At this price, buyers want a certain quantity. Slide along the demand curve to see the relationship.</div>
+          <p class="drag-hint">↕ Drag the indigo dot on the graph, or use the slider above.</p>
         </div>
       </div>
       <div class="slide-footer">
@@ -308,10 +338,12 @@
             <text x="726" y="394" font-size="13" fill="#6b6a5f" text-anchor="end">Quantity</text>
             <text x="30" y="24" font-size="13" fill="#6b6a5f">Price</text>
             <path id="sCurve2" stroke="#1a6b4a" stroke-width="3" fill="none" />
+            <text id="sLabel2" font-size="15" font-weight="600" fill="#1a6b4a"></text>
             <line id="pLine2" x1="70" x2="730" stroke="#a9a48f" stroke-width="1" stroke-dasharray="3 5" />
-            <circle id="qsDot2" r="6" fill="#1a6b4a"></circle>
+            <circle id="qsDot2" class="draggable" r="7" fill="#1a6b4a"></circle>
           </svg>
           <div class="insight" id="insight2">At a higher price, sellers are willing to offer more. That is a movement along the supply curve.</div>
+          <p class="drag-hint">↕ Drag the green dot on the graph, or use the slider above.</p>
         </div>
       </div>
       <div class="slide-footer">
@@ -350,15 +382,18 @@
             <text x="30" y="24" font-size="13" fill="#6b6a5f">Price</text>
             <path id="dCurve3" stroke="#4338a8" stroke-width="3" fill="none" />
             <path id="sCurve3" stroke="#1a6b4a" stroke-width="3" fill="none" />
+            <text id="dLabel3" font-size="15" font-weight="600" fill="#4338a8"></text>
+            <text id="sLabel3" font-size="15" font-weight="600" fill="#1a6b4a"></text>
             <line id="pLine3" x1="70" x2="730" stroke="#a9a48f" stroke-width="1" stroke-dasharray="3 5" />
             <line id="gapLine3" stroke="#c7502a" stroke-width="4" stroke-linecap="round" opacity="0" />
             <text id="gapText3" font-size="13" font-weight="600" fill="#c7502a" text-anchor="middle" opacity="0"></text>
-            <circle id="qdDot3" r="6" fill="#4338a8"></circle>
-            <circle id="qsDot3" r="6" fill="#1a6b4a"></circle>
-            <circle id="eqDot3" r="7" fill="#22251f"></circle>
+            <circle id="qdDot3" class="draggable" r="7" fill="#4338a8"></circle>
+            <circle id="qsDot3" class="draggable" r="7" fill="#1a6b4a"></circle>
+            <circle id="eqDot3" class="draggable" r="8" fill="#22251f"></circle>
             <text id="eqText3" font-size="13" font-weight="600" fill="#22251f"></text>
           </svg>
           <div class="insight" id="insight3">The equilibrium price is where the curves meet. Move the price away from it and the market creates either a shortage or a surplus.</div>
+          <p class="drag-hint">↕ Drag any dot on the graph, or use the slider above.</p>
         </div>
       </div>
       <div class="slide-footer">
@@ -372,12 +407,17 @@
         <div class="slide-copy">
           <div class="eyebrow">Slide 4 · Curve shifts</div>
           <h2>Now watch the whole curve move</h2>
-          <p>This is the key difference: when something other than price changes, the whole curve shifts. The old curve is dashed and the new one is solid.</p>
+          <p>This is the key difference: when something <em>other than price</em> changes, the whole curve shifts — the old curve is dashed, the new one is solid — and the market settles at a new equilibrium.</p>
           <div class="shift-controls">
             <button class="shift-btn active" data-shift="d+">☀️ Demand right</button>
             <button class="shift-btn" data-shift="d-">❄️ Demand left</button>
             <button class="shift-btn" data-shift="s+">⚙️ Supply right</button>
             <button class="shift-btn" data-shift="s-">🥛 Supply left</button>
+          </div>
+          <div class="slider-row">
+            <label for="shiftRange">Shift strength</label>
+            <input type="range" id="shiftRange" min="6" max="30" step="2" value="18" />
+            <span class="price-out" id="shiftRangeOut">18</span>
           </div>
           <ul class="bullet-list">
             <li>Demand shifts when tastes, income, substitutes, or expectations change.</li>
@@ -386,17 +426,23 @@
           </ul>
         </div>
         <div class="slide-visual">
-          <svg viewBox="0 0 760 420" role="img" aria-label="Demand and supply curve shifts">
+          <svg viewBox="0 0 760 420" role="img" aria-label="Demand and supply curve shifts with equilibrium comparison">
             <line x1="70" y1="370" x2="730" y2="370" stroke="#c9c4b4" stroke-width="1.5" />
             <line x1="70" y1="370" x2="70" y2="30" stroke="#c9c4b4" stroke-width="1.5" />
             <text x="726" y="394" font-size="13" fill="#6b6a5f" text-anchor="end">Quantity</text>
             <text x="30" y="24" font-size="13" fill="#6b6a5f">Price</text>
-            <path id="shiftOld" stroke="#4338a8" stroke-width="1.5" stroke-dasharray="6 6" fill="none" opacity="0" />
+            <path id="shiftOld" stroke="#4338a8" stroke-width="1.5" stroke-dasharray="6 6" fill="none" opacity="0.6" />
             <path id="shiftNew" stroke="#4338a8" stroke-width="3" fill="none" />
-            <path id="shiftSupply" stroke="#1a6b4a" stroke-width="2.2" fill="none" opacity="0.25" />
-            <text id="shiftLabel" font-size="15" font-weight="600" fill="#4338a8"></text>
-            <text id="shiftSupplyLabel" font-size="15" font-weight="600" fill="#1a6b4a">S</text>
+            <path id="shiftOther" stroke="#1a6b4a" stroke-width="2.2" fill="none" opacity="0.35" />
+            <text id="shiftLabel" font-size="14" font-weight="600" fill="#4338a8"></text>
+            <text id="shiftOtherLabel" font-size="14" font-weight="600" fill="#1a6b4a"></text>
+            <line id="eqArrow" stroke="#c7502a" stroke-width="2" stroke-dasharray="4 4" opacity="0" />
+            <circle id="eqOldDot" r="6" fill="#8a8776" opacity="0"></circle>
+            <circle id="eqNewDot" r="8" fill="#22251f" opacity="0"></circle>
+            <text id="eqOldText" font-size="11" font-weight="700" fill="#8a8776"></text>
+            <text id="eqNewText" font-size="11" font-weight="700" fill="#22251f"></text>
           </svg>
+          <div class="eq-compare" id="eqCompare"></div>
           <div class="insight" id="insight4">Demand shifts right when buyers want more at every price.</div>
         </div>
       </div>
@@ -439,14 +485,13 @@
   <script>
     let currentSlide = 0;
     let manualPrice = 50;
-    let dShift = 0;
-    let sShift = 0;
     let activeShift = 'd+';
+    let shiftAmount = 18;
     const X0 = 70, X1 = 730, Y0 = 370, Y1 = 40, QMAX = 112, PMAX = 112;
     const x = q => X0 + (q / QMAX) * (X1 - X0);
     const y = p => Y0 - (p / PMAX) * (Y0 - Y1);
-    const qd = p => 100 - p + dShift;
-    const qs = p => p + sShift;
+    const qd = p => 100 - p;
+    const qs = p => p;
 
     function path(fn) {
       const pts = [];
@@ -485,93 +530,134 @@
         $('gapText').setAttribute('opacity', 0);
         insightEl.textContent = `At RM ${P}, buyers want about ${Math.round(QD)} units. Move the slider to see how quantity demanded changes along the same curve.`;
       } else if (currentSlide === 1) {
-        $('sCurve').setAttribute('d', path(qs));
-        $('sCurve').setAttribute('opacity', 1);
-        $('dCurve').setAttribute('opacity', 0);
-        $('sLabel').setAttribute('x', Math.min(x(qs(98)) + 10, 700));
-        $('sLabel').setAttribute('y', y(98) + 5);
-        $('sLabel').textContent = 'S';
-        $('dLabel').textContent = '';
-        $('pLine').setAttribute('y1', y(P));
-        $('pLine').setAttribute('y2', y(P));
-        $('qsDot').setAttribute('cx', x(QS));
-        $('qsDot').setAttribute('cy', y(P));
-        $('qdDot').setAttribute('opacity', 0);
-        $('eqDot').setAttribute('opacity', 0);
-        $('gapLine').setAttribute('opacity', 0);
-        $('gapText').setAttribute('opacity', 0);
+        $('sCurve2').setAttribute('d', path(qs));
+        $('sLabel2').setAttribute('x', Math.min(x(qs(98)) + 10, 700));
+        $('sLabel2').setAttribute('y', y(98) + 5);
+        $('sLabel2').textContent = 'S';
+        $('pLine2').setAttribute('y1', y(P));
+        $('pLine2').setAttribute('y2', y(P));
+        $('qsDot2').setAttribute('cx', x(QS));
+        $('qsDot2').setAttribute('cy', y(P));
         insightEl.textContent = `At RM ${P}, sellers offer about ${Math.round(QS)} units. Move the slider to see how quantity supplied changes along the supply curve.`;
       } else if (currentSlide === 3) {
         const baselineDemand = p => 100 - p;
         const baselineSupply = p => p;
-        $('shiftOld').setAttribute('opacity', 0.55);
-        $('shiftSupply').setAttribute('opacity', 0.2);
-        if (activeShift === 'd+' || activeShift === 'd-') {
+        const dS = activeShift === 'd+' ? shiftAmount : activeShift === 'd-' ? -shiftAmount : 0;
+        const sS = activeShift === 's+' ? shiftAmount : activeShift === 's-' ? -shiftAmount : 0;
+        const shiftedDemand = p => 100 - p + dS;
+        const shiftedSupply = p => p + sS;
+        const demandShifting = activeShift === 'd+' || activeShift === 'd-';
+
+        $('shiftOld').setAttribute('opacity', 0.6);
+        $('shiftOther').setAttribute('opacity', 0.35);
+
+        if (demandShifting) {
           $('shiftOld').setAttribute('d', path(baselineDemand));
           $('shiftOld').setAttribute('stroke', '#4338a8');
-          $('shiftNew').setAttribute('d', path(qd));
+          $('shiftNew').setAttribute('d', path(shiftedDemand));
           $('shiftNew').setAttribute('stroke', '#4338a8');
-          $('shiftSupply').setAttribute('d', path(baselineSupply));
-          $('shiftSupply').setAttribute('stroke', '#1a6b4a');
-          $('shiftLabel').setAttribute('x', 540);
-          $('shiftLabel').setAttribute('y', 90);
+          $('shiftOther').setAttribute('d', path(baselineSupply));
+          $('shiftOther').setAttribute('stroke', '#1a6b4a');
+          $('shiftLabel').setAttribute('x', Math.min(x(shiftedDemand(16)) + 10, 580));
+          $('shiftLabel').setAttribute('y', y(16) + 5);
           $('shiftLabel').textContent = activeShift === 'd+' ? 'D → D′ (right)' : 'D → D′ (left)';
           $('shiftLabel').setAttribute('fill', '#4338a8');
-          $('shiftSupplyLabel').setAttribute('fill', '#1a6b4a');
-          insightEl.textContent = activeShift === 'd+' ? 'A rise in demand means buyers want more at every price, so the whole demand curve shifts right.' : 'A fall in demand means buyers want less at every price, so the whole demand curve shifts left.';
+          $('shiftOtherLabel').setAttribute('x', Math.min(x(baselineSupply(98)) + 10, 700));
+          $('shiftOtherLabel').setAttribute('y', y(98) + 5);
+          $('shiftOtherLabel').textContent = 'S';
+          $('shiftOtherLabel').setAttribute('fill', '#1a6b4a');
         } else {
           $('shiftOld').setAttribute('d', path(baselineSupply));
           $('shiftOld').setAttribute('stroke', '#1a6b4a');
-          $('shiftNew').setAttribute('d', path(qs));
+          $('shiftNew').setAttribute('d', path(shiftedSupply));
           $('shiftNew').setAttribute('stroke', '#1a6b4a');
-          $('shiftSupply').setAttribute('d', path(baselineSupply));
-          $('shiftSupply').setAttribute('stroke', '#1a6b4a');
-          $('shiftLabel').setAttribute('x', 540);
-          $('shiftLabel').setAttribute('y', 90);
+          $('shiftOther').setAttribute('d', path(baselineDemand));
+          $('shiftOther').setAttribute('stroke', '#4338a8');
+          $('shiftLabel').setAttribute('x', Math.min(x(shiftedSupply(98)) + 10, 580));
+          $('shiftLabel').setAttribute('y', y(98) + 5);
           $('shiftLabel').textContent = activeShift === 's+' ? 'S → S′ (right)' : 'S → S′ (left)';
           $('shiftLabel').setAttribute('fill', '#1a6b4a');
-          $('shiftSupplyLabel').setAttribute('fill', '#1a6b4a');
-          insightEl.textContent = activeShift === 's+' ? 'Better technology lets sellers offer more at every price, so the whole supply curve shifts right.' : 'Higher input costs reduce what sellers can offer at every price, so the whole supply curve shifts left.';
+          $('shiftOtherLabel').setAttribute('x', Math.min(x(baselineDemand(16)) + 10, 700));
+          $('shiftOtherLabel').setAttribute('y', y(16) + 5);
+          $('shiftOtherLabel').textContent = 'D';
+          $('shiftOtherLabel').setAttribute('fill', '#4338a8');
         }
-      } else {
-        $('dCurve').setAttribute('d', path(qd));
-        $('sCurve').setAttribute('d', path(qs));
-        $('dCurve').setAttribute('opacity', 1);
-        $('sCurve').setAttribute('opacity', 1);
-        $('dLabel').setAttribute('x', Math.min(x(qd(16)) + 10, 700));
-        $('dLabel').setAttribute('y', y(16) + 5);
-        $('dLabel').textContent = 'D';
-        $('sLabel').setAttribute('x', Math.min(x(qs(98)) + 10, 700));
-        $('sLabel').setAttribute('y', y(98) + 5);
-        $('sLabel').textContent = 'S';
-        $('pLine').setAttribute('y1', y(P));
-        $('pLine').setAttribute('y2', y(P));
-        $('qdDot').setAttribute('cx', x(QD));
-        $('qdDot').setAttribute('cy', y(P));
-        $('qsDot').setAttribute('cx', x(QS));
-        $('qsDot').setAttribute('cy', y(P));
-        $('qdDot').setAttribute('opacity', 1);
-        $('qsDot').setAttribute('opacity', 1);
-        $('eqDot').setAttribute('cx', x(eqQ));
-        $('eqDot').setAttribute('cy', y(eqP));
-        $('eqDot').setAttribute('opacity', 1);
-        $('eqText').setAttribute('x', Math.min(x(eqQ) + 14, 560));
-        $('eqText').setAttribute('y', y(eqP) - 12);
-        $('eqText').textContent = `Equilibrium: P = RM ${Math.round(eqP)}, Q = ${Math.round(eqQ)}`;
-        const gap = Math.abs(QD - QS);
-        if (gap > 1.5) {
-          $('gapLine').setAttribute('x1', x(Math.min(QD, QS)) + 8);
-          $('gapLine').setAttribute('x2', x(Math.max(QD, QS)) - 8);
-          $('gapLine').setAttribute('y1', y(P));
-          $('gapLine').setAttribute('y2', y(P));
-          $('gapLine').setAttribute('opacity', 0.9);
-          $('gapText').setAttribute('x', (x(QD) + x(QS)) / 2);
-          $('gapText').setAttribute('y', y(P) - 12);
-          $('gapText').textContent = QD > QS ? 'shortage' : 'surplus';
-          $('gapText').setAttribute('opacity', 1);
+
+        const eqP0 = 50, eqQ0 = 50;
+        const eqP1 = (100 + dS - sS) / 2;
+        const eqQ1 = eqP1 + sS;
+
+        $('eqOldDot').setAttribute('cx', x(eqQ0));
+        $('eqOldDot').setAttribute('cy', y(eqP0));
+        $('eqOldDot').setAttribute('opacity', 1);
+        $('eqNewDot').setAttribute('cx', x(eqQ1));
+        $('eqNewDot').setAttribute('cy', y(eqP1));
+        $('eqNewDot').setAttribute('opacity', 1);
+        $('eqArrow').setAttribute('x1', x(eqQ0));
+        $('eqArrow').setAttribute('y1', y(eqP0));
+        $('eqArrow').setAttribute('x2', x(eqQ1));
+        $('eqArrow').setAttribute('y2', y(eqP1));
+        $('eqArrow').setAttribute('opacity', 0.9);
+        $('eqOldText').setAttribute('x', x(eqQ0) + 10);
+        $('eqOldText').setAttribute('y', y(eqP0) - 10);
+        $('eqOldText').textContent = 'old';
+        $('eqNewText').setAttribute('x', x(eqQ1) + 10);
+        $('eqNewText').setAttribute('y', y(eqP1) - 12);
+        $('eqNewText').textContent = 'new';
+
+        const dP = Math.round(eqP1 - eqP0);
+        const dQ = Math.round(eqQ1 - eqQ0);
+        const priceWord = dP > 0 ? 'up' : dP < 0 ? 'down' : 'unchanged';
+        const qWord = dQ > 0 ? 'up' : dQ < 0 ? 'down' : 'unchanged';
+
+        $('eqCompare').innerHTML = `
+          <div class="eq-compare-row">
+            <div class="eq-stat old"><span class="eq-tag">Old equilibrium</span><strong>P = RM${Math.round(eqP0)}, Q = ${Math.round(eqQ0)}</strong></div>
+            <div class="eq-arrow">→</div>
+            <div class="eq-stat new"><span class="eq-tag">New equilibrium</span><strong>P = RM${Math.round(eqP1)}, Q = ${Math.round(eqQ1)}</strong></div>
+          </div>
+          <div class="eq-delta">Price ${priceWord}${dP !== 0 ? ' by RM' + Math.abs(dP) : ''} · Quantity ${qWord}${dQ !== 0 ? ' by ' + Math.abs(dQ) : ''}</div>
+        `;
+
+        $('shiftRangeOut').textContent = shiftAmount;
+
+        const shiftNoun = demandShifting ? 'Demand' : 'Supply';
+        const dirWord = (activeShift === 'd+' || activeShift === 's+') ? 'right' : 'left';
+        insightEl.textContent = `${shiftNoun} shifts ${dirWord}: the whole curve moves, and equilibrium moves with it — from P = RM${Math.round(eqP0)}, Q = ${Math.round(eqQ0)} to P = RM${Math.round(eqP1)}, Q = ${Math.round(eqQ1)}.`;
+      } else if (currentSlide === 2) {
+        $('dCurve3').setAttribute('d', path(qd));
+        $('sCurve3').setAttribute('d', path(qs));
+        $('dLabel3').setAttribute('x', Math.min(x(qd(16)) + 10, 700));
+        $('dLabel3').setAttribute('y', y(16) + 5);
+        $('dLabel3').textContent = 'D';
+        $('sLabel3').setAttribute('x', Math.min(x(qs(98)) + 10, 700));
+        $('sLabel3').setAttribute('y', y(98) + 5);
+        $('sLabel3').textContent = 'S';
+        $('pLine3').setAttribute('y1', y(P));
+        $('pLine3').setAttribute('y2', y(P));
+        $('qdDot3').setAttribute('cx', x(QD));
+        $('qdDot3').setAttribute('cy', y(P));
+        $('qsDot3').setAttribute('cx', x(QS));
+        $('qsDot3').setAttribute('cy', y(P));
+        $('eqDot3').setAttribute('cx', x(eqQ));
+        $('eqDot3').setAttribute('cy', y(eqP));
+        $('eqText3').setAttribute('x', Math.min(x(eqQ) + 14, 560));
+        $('eqText3').setAttribute('y', y(eqP) - 12);
+        $('eqText3').textContent = `Equilibrium: P = RM ${Math.round(eqP)}, Q = ${Math.round(eqQ)}`;
+        const gap3 = Math.abs(QD - QS);
+        if (gap3 > 1.5) {
+          $('gapLine3').setAttribute('x1', x(Math.min(QD, QS)) + 8);
+          $('gapLine3').setAttribute('x2', x(Math.max(QD, QS)) - 8);
+          $('gapLine3').setAttribute('y1', y(P));
+          $('gapLine3').setAttribute('y2', y(P));
+          $('gapLine3').setAttribute('opacity', 0.9);
+          $('gapText3').setAttribute('x', (x(QD) + x(QS)) / 2);
+          $('gapText3').setAttribute('y', y(P) - 12);
+          $('gapText3').textContent = QD > QS ? 'shortage' : 'surplus';
+          $('gapText3').setAttribute('opacity', 1);
         } else {
-          $('gapLine').setAttribute('opacity', 0);
-          $('gapText').setAttribute('opacity', 0);
+          $('gapLine3').setAttribute('opacity', 0);
+          $('gapText3').setAttribute('opacity', 0);
         }
         insightEl.textContent = P < 50 ? `Price below equilibrium creates a shortage. Buyers want more than sellers offer.` : P > 50 ? `Price above equilibrium creates a surplus. Sellers offer more than buyers want.` : `At equilibrium, the market clears and quantity demanded matches quantity supplied.`;
       }
@@ -599,13 +685,14 @@
 
     document.querySelectorAll('.shift-btn').forEach(btn => btn.addEventListener('click', () => {
       activeShift = btn.dataset.shift;
-      if (activeShift === 'd+') { dShift = 18; sShift = 0; }
-      else if (activeShift === 'd-') { dShift = -18; sShift = 0; }
-      else if (activeShift === 's+') { dShift = 0; sShift = 18; }
-      else { dShift = 0; sShift = -18; }
       document.querySelectorAll('.shift-btn').forEach(b => b.classList.toggle('active', b === btn));
       renderGraph();
     }));
+
+    $('shiftRange').addEventListener('input', e => {
+      shiftAmount = Number(e.target.value);
+      renderGraph();
+    });
 
     ['price', 'price2', 'price3'].forEach(id => {
       $(id).addEventListener('input', e => {
@@ -613,6 +700,34 @@
         renderGraph();
       });
     });
+
+    function priceFromClientY(svg, clientY) {
+      const rect = svg.getBoundingClientRect();
+      const localY = (clientY - rect.top) * (420 / rect.height);
+      const p = ((Y0 - localY) / (Y0 - Y1)) * PMAX;
+      return Math.max(15, Math.min(88, Math.round(p)));
+    }
+
+    function enableDrag(id) {
+      const el = $(id);
+      if (!el) return;
+      el.addEventListener('pointerdown', e => {
+        e.preventDefault();
+        const svg = el.ownerSVGElement;
+        el.setPointerCapture(e.pointerId);
+        const onMove = ev => {
+          manualPrice = priceFromClientY(svg, ev.clientY);
+          renderGraph();
+        };
+        const onUp = () => {
+          document.removeEventListener('pointermove', onMove);
+          document.removeEventListener('pointerup', onUp);
+        };
+        document.addEventListener('pointermove', onMove);
+        document.addEventListener('pointerup', onUp);
+      });
+    }
+    ['qdDot', 'qsDot', 'eqDot', 'qsDot2', 'qdDot3', 'qsDot3', 'eqDot3'].forEach(enableDrag);
 
     renderGraph();
     showSlide(0);
