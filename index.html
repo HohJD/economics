@@ -28,11 +28,9 @@
       line-height: 1.65;
       padding: 24px 16px 80px;
     }
-    .wrap { max-width: 980px; margin: 0 auto; }
+    .wrap { max-width: 1080px; margin: 0 auto; }
 
-    header {
-      padding: 28px 0 10px;
-    }
+    header { padding: 24px 0 10px; }
     .eyebrow {
       text-transform: uppercase;
       letter-spacing: 0.16em;
@@ -45,42 +43,72 @@
       font-size: clamp(2rem, 4.2vw, 3rem);
       line-height: 1.13;
       margin: 10px 0 12px;
-      max-width: 820px;
+      max-width: 840px;
     }
     .highlight { color: var(--demand); }
     .highlight-alt { color: var(--supply); }
     .lede {
       font-size: 1rem;
       color: var(--muted);
-      max-width: 720px;
+      max-width: 760px;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 18px;
-      margin: 24px 0 32px;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 20px 20px 18px;
-      box-shadow: var(--shadow);
-    }
-    .card h2, .section-title {
-      font-family: 'Fraunces', serif;
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-    }
-    .card p { color: var(--muted); }
-    .pill-row {
+    .slide-nav {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 14px;
+      margin: 20px 0 12px;
     }
-    .pill {
+    .nav-btn, .ghost-btn, .primary-btn {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.16s ease;
+    }
+    .nav-btn.active, .primary-btn {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+    .nav-btn:hover, .ghost-btn:hover, .primary-btn:hover { transform: translateY(-1px); }
+    .nav-btn:focus-visible, .ghost-btn:focus-visible, .primary-btn:focus-visible { outline: 2px solid var(--demand); outline-offset: 2px; }
+
+    .slide { display: none; }
+    .slide.active { display: block; }
+    .slide-card {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .slide-copy h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem;
+      margin: 8px 0 10px;
+    }
+    .slide-copy p { color: var(--muted); }
+    .bullet-list {
+      margin: 12px 0 0 18px;
+      color: var(--muted);
+      display: grid;
+      gap: 6px;
+    }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .chip {
       border-radius: 999px;
       padding: 6px 10px;
       font-size: 0.82rem;
@@ -89,10 +117,33 @@
       border: 1px solid var(--line);
       color: var(--ink);
     }
+    .chip.demand { color: var(--demand); border-color: #d2ccf1; }
+    .chip.supply { color: var(--supply); border-color: #cfe8da; }
 
-    .section {
-      margin-top: 32px;
+    .slide-visual { background: #fcfaf4; border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+    .slider-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+    .slider-row label { font-weight: 600; }
+    input[type="range"] { flex: 1; accent-color: var(--ink); }
+    .price-out { min-width: 70px; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+    svg { width: 100%; height: auto; display: block; }
+    svg text { font-family: 'Inter', sans-serif; }
+    .insight {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #f8f2dd;
+      color: #5a430e;
+      font-size: 0.95rem;
     }
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .section { margin-top: 24px; }
     .grid-2 {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -106,85 +157,7 @@
       box-shadow: var(--shadow);
     }
     .concept h3 { font-size: 1rem; margin-bottom: 6px; }
-    .concept p { font-size: 0.95rem; }
-
-    .sandbox {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-      margin-top: 12px;
-    }
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    button {
-      border: 1px solid var(--line);
-      background: var(--paper);
-      color: var(--ink);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font: inherit;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.16s ease;
-    }
-    button:hover { border-color: var(--ink); transform: translateY(-1px); }
-    button:focus-visible { outline: 2px solid var(--demand); outline-offset: 2px; }
-    button.active {
-      background: var(--ink);
-      color: white;
-      border-color: var(--ink);
-    }
-    .reset-btn { margin-left: auto; }
-
-    .slider-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-    }
-    input[type="range"] { flex: 1; accent-color: var(--ink); }
-    .price-out {
-      min-width: 70px;
-      text-align: right;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-    }
-
-    svg { width: 100%; height: auto; display: block; }
-    svg text { font-family: 'Inter', sans-serif; }
-    .status-box {
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: #f8f2dd;
-      color: #5a430e;
-      font-size: 0.95rem;
-    }
-
-    .scenarios {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 16px;
-    }
-    .scenario-card {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 14px;
-      background: var(--card);
-      cursor: pointer;
-      transition: 0.16s ease;
-    }
-    .scenario-card:hover { border-color: var(--ink); transform: translateY(-1px); }
-    .scenario-card h3 { font-size: 0.97rem; margin-bottom: 4px; }
-    .scenario-card p { font-size: 0.9rem; color: var(--muted); }
+    .concept p { font-size: 0.95rem; color: var(--muted); }
 
     .quiz {
       background: var(--card);
@@ -213,8 +186,11 @@
       font-size: 0.9rem;
     }
 
-    @media (max-width: 780px) {
-      .hero-grid, .grid-2, .scenarios { grid-template-columns: 1fr; }
+    @media (max-width: 900px) {
+      .slide-card { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .grid-2 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -223,112 +199,166 @@
     <header>
       <div class="eyebrow">Economics made visual</div>
       <h1>Learn how <span class="highlight">demand</span> and <span class="highlight-alt">supply</span> shape prices</h1>
-      <p class="lede">This lesson focuses on one big idea: price changes cause movement along a curve, while outside forces cause the whole curve to shift. Use the graph, test the scenarios, and then try the quiz.</p>
+      <p class="lede">This lesson is now split into short slides so the story feels easier to follow: first the demand curve, then the supply curve, and finally the market curve where both meet.</p>
     </header>
 
-    <section class="hero-grid">
-      <div class="card">
-        <h2>Core idea</h2>
-        <p>Demand and supply are relationships between price and quantity. A change in the good’s own price moves you along the curve. A change in anything else shifts the curve.</p>
-        <div class="pill-row">
-          <span class="pill">Own price → movement</span>
-          <span class="pill">Other factors → shift</span>
-          <span class="pill">Equilibrium = balance</span>
+    <div class="slide-nav" role="tablist" aria-label="Lesson slides">
+      <button class="nav-btn active" data-slide="0">1. Demand curve</button>
+      <button class="nav-btn" data-slide="1">2. Supply curve</button>
+      <button class="nav-btn" data-slide="2">3. Market curve</button>
+    </div>
+
+    <section class="slide active" data-index="0">
+      <div class="slide-card">
+        <div class="slide-copy">
+          <div class="eyebrow">Slide 1 · Demand</div>
+          <h2>Start with the demand curve</h2>
+          <p>Demand shows how much buyers want at each price. When the price rises, quantity demanded usually falls, so we move along the same curve.</p>
+          <ul class="bullet-list">
+            <li>Price changes cause movement along the demand curve.</li>
+            <li>The curve itself stays in place unless something else changes.</li>
+            <li>Think: “higher price → less quantity demanded.”</li>
+          </ul>
+          <div class="legend">
+            <span class="chip demand">Demand curve</span>
+            <span class="chip">Price ↑ → Qd ↓</span>
+          </div>
+        </div>
+        <div class="slide-visual">
+          <div class="slider-row">
+            <label for="price">Set the price</label>
+            <input type="range" id="price" min="15" max="88" step="1" value="50" />
+            <span class="price-out" id="priceOut">RM 50</span>
+          </div>
+          <svg id="graph" viewBox="0 0 760 420" role="img" aria-label="Demand, supply, and market graph taught in slides">
+            <line x1="70" y1="370" x2="730" y2="370" stroke="#c9c4b4" stroke-width="1.5" />
+            <line x1="70" y1="370" x2="70" y2="30" stroke="#c9c4b4" stroke-width="1.5" />
+            <text x="726" y="394" font-size="13" fill="#6b6a5f" text-anchor="end">Quantity</text>
+            <text x="30" y="24" font-size="13" fill="#6b6a5f">Price</text>
+            <path id="dOld" stroke="#4338a8" stroke-width="1.5" stroke-dasharray="6 6" fill="none" opacity="0" />
+            <path id="sOld" stroke="#1a6b4a" stroke-width="1.5" stroke-dasharray="6 6" fill="none" opacity="0" />
+            <path id="dCurve" stroke="#4338a8" stroke-width="3" fill="none" style="transition: d .3s ease" />
+            <path id="sCurve" stroke="#1a6b4a" stroke-width="3" fill="none" style="transition: d .3s ease" />
+            <text id="dLabel" font-size="15" font-weight="600" fill="#4338a8"></text>
+            <text id="sLabel" font-size="15" font-weight="600" fill="#1a6b4a"></text>
+            <line id="pLine" x1="70" x2="730" stroke="#a9a48f" stroke-width="1" stroke-dasharray="3 5" />
+            <line id="gapLine" stroke="#c7502a" stroke-width="4" stroke-linecap="round" opacity="0" />
+            <text id="gapText" font-size="13" font-weight="600" fill="#c7502a" text-anchor="middle" opacity="0"></text>
+            <circle id="qdDot" r="6" fill="#4338a8"></circle>
+            <circle id="qsDot" r="6" fill="#1a6b4a"></circle>
+            <circle id="eqDot" r="7" fill="#22251f"></circle>
+            <text id="eqText" font-size="13" font-weight="600" fill="#22251f"></text>
+          </svg>
+          <div class="insight" id="insight">At this price, buyers want a certain quantity. Slide along the demand curve to see the relationship.</div>
         </div>
       </div>
-      <div class="card">
-        <h2>What to watch for</h2>
-        <p>When the curve shifts, the new price is the result of a shortage or surplus. This is how economists explain market changes without mixing up cause and effect.</p>
+      <div class="slide-footer">
+        <button class="ghost-btn" data-prev disabled>← Prev</button>
+        <button class="primary-btn" data-next>Next slide →</button>
+      </div>
+    </section>
+
+    <section class="slide" data-index="1">
+      <div class="slide-card">
+        <div class="slide-copy">
+          <div class="eyebrow">Slide 2 · Supply</div>
+          <h2>Then look at the supply curve</h2>
+          <p>Supply shows how much sellers are willing to offer at each price. When the price rises, quantity supplied usually rises too, so we move along the supply curve.</p>
+          <ul class="bullet-list">
+            <li>Price changes also cause movement along the supply curve.</li>
+            <li>The curve itself does not move unless a non-price factor changes.</li>
+            <li>Think: “higher price → more quantity supplied.”</li>
+          </ul>
+          <div class="legend">
+            <span class="chip supply">Supply curve</span>
+            <span class="chip">Price ↑ → Qs ↑</span>
+          </div>
+        </div>
+        <div class="slide-visual">
+          <div class="slider-row">
+            <label for="price2">Set the price</label>
+            <input type="range" id="price2" min="15" max="88" step="1" value="50" />
+            <span class="price-out" id="priceOut2">RM 50</span>
+          </div>
+          <svg viewBox="0 0 760 420" role="img" aria-label="Supply curve lesson slide">
+            <line x1="70" y1="370" x2="730" y2="370" stroke="#c9c4b4" stroke-width="1.5" />
+            <line x1="70" y1="370" x2="70" y2="30" stroke="#c9c4b4" stroke-width="1.5" />
+            <text x="726" y="394" font-size="13" fill="#6b6a5f" text-anchor="end">Quantity</text>
+            <text x="30" y="24" font-size="13" fill="#6b6a5f">Price</text>
+            <path id="sCurve2" stroke="#1a6b4a" stroke-width="3" fill="none" />
+            <line id="pLine2" x1="70" x2="730" stroke="#a9a48f" stroke-width="1" stroke-dasharray="3 5" />
+            <circle id="qsDot2" r="6" fill="#1a6b4a"></circle>
+          </svg>
+          <div class="insight" id="insight2">At a higher price, sellers are willing to offer more. That is a movement along the supply curve.</div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <button class="ghost-btn" data-prev>← Prev</button>
+        <button class="primary-btn" data-next>Next slide →</button>
+      </div>
+    </section>
+
+    <section class="slide" data-index="2">
+      <div class="slide-card">
+        <div class="slide-copy">
+          <div class="eyebrow">Slide 3 · Market</div>
+          <h2>Now bring both curves together</h2>
+          <p>This is the full market picture. The demand curve and the supply curve meet at equilibrium, where quantity demanded equals quantity supplied.</p>
+          <ul class="bullet-list">
+            <li>When the price is below equilibrium, there is a shortage.</li>
+            <li>When the price is above equilibrium, there is a surplus.</li>
+            <li>Shifts happen when something other than price changes.</li>
+          </ul>
+          <div class="legend">
+            <span class="chip demand">Demand</span>
+            <span class="chip supply">Supply</span>
+            <span class="chip">Equilibrium</span>
+          </div>
+        </div>
+        <div class="slide-visual">
+          <div class="slider-row">
+            <label for="price3">Set the price</label>
+            <input type="range" id="price3" min="15" max="88" step="1" value="50" />
+            <span class="price-out" id="priceOut3">RM 50</span>
+          </div>
+          <svg viewBox="0 0 760 420" role="img" aria-label="Market equilibrium slide">
+            <line x1="70" y1="370" x2="730" y2="370" stroke="#c9c4b4" stroke-width="1.5" />
+            <line x1="70" y1="370" x2="70" y2="30" stroke="#c9c4b4" stroke-width="1.5" />
+            <text x="726" y="394" font-size="13" fill="#6b6a5f" text-anchor="end">Quantity</text>
+            <text x="30" y="24" font-size="13" fill="#6b6a5f">Price</text>
+            <path id="dCurve3" stroke="#4338a8" stroke-width="3" fill="none" />
+            <path id="sCurve3" stroke="#1a6b4a" stroke-width="3" fill="none" />
+            <line id="pLine3" x1="70" x2="730" stroke="#a9a48f" stroke-width="1" stroke-dasharray="3 5" />
+            <line id="gapLine3" stroke="#c7502a" stroke-width="4" stroke-linecap="round" opacity="0" />
+            <text id="gapText3" font-size="13" font-weight="600" fill="#c7502a" text-anchor="middle" opacity="0"></text>
+            <circle id="qdDot3" r="6" fill="#4338a8"></circle>
+            <circle id="qsDot3" r="6" fill="#1a6b4a"></circle>
+            <circle id="eqDot3" r="7" fill="#22251f"></circle>
+            <text id="eqText3" font-size="13" font-weight="600" fill="#22251f"></text>
+          </svg>
+          <div class="insight" id="insight3">The equilibrium price is where the curves meet. Move the price away from it and the market creates either a shortage or a surplus.</div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <button class="ghost-btn" data-prev>← Prev</button>
+        <button class="primary-btn" data-next disabled>Next slide →</button>
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section-title">The big picture</h2>
       <div class="grid-2">
         <div class="concept">
-          <h3>Demand</h3>
-          <p>Shows how much buyers want at each price. Higher prices usually reduce quantity demanded.</p>
+          <h3>Movement along the curve</h3>
+          <p>Only the good’s own price changes. The point moves along the same curve.</p>
         </div>
         <div class="concept">
-          <h3>Supply</h3>
-          <p>Shows how much sellers offer at each price. Higher prices usually increase quantity supplied.</p>
-        </div>
-        <div class="concept">
-          <h3>Equilibrium</h3>
-          <p>The point where buyers and sellers agree. It is where quantity demanded equals quantity supplied.</p>
-        </div>
-        <div class="concept">
-          <h3>Why it matters</h3>
-          <p>Markets do not only react to price changes. They also react to weather, income, tastes, technology, and policy.</p>
+          <h3>Shift of the curve</h3>
+          <p>Something else changes, like income, tastes, technology, or costs. The entire curve moves.</p>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section-title">Interactive sandbox</h2>
-      <div class="sandbox">
-        <div class="toolbar" role="group" aria-label="Market shocks">
-          <button data-shift="d+" class="scenario-btn">☀️ Heatwave → demand right</button>
-          <button data-shift="d-" class="scenario-btn">❄️ Cold snap → demand left</button>
-          <button data-shift="s-" class="scenario-btn">🥛 Input cost up → supply left</button>
-          <button data-shift="s+" class="scenario-btn">⚙️ Technology improves → supply right</button>
-          <button class="reset-btn" id="resetBtn">Reset</button>
-        </div>
-
-        <div class="slider-row">
-          <label for="price">Move price yourself</label>
-          <input type="range" id="price" min="15" max="88" step="1" value="50" />
-          <span class="price-out" id="priceOut">RM 50</span>
-        </div>
-
-        <svg id="graph" viewBox="0 0 760 420" role="img" aria-label="Supply and demand graph with moving price and shifting curves">
-          <line x1="70" y1="370" x2="730" y2="370" stroke="#c9c4b4" stroke-width="1.5" />
-          <line x1="70" y1="370" x2="70" y2="30" stroke="#c9c4b4" stroke-width="1.5" />
-          <text x="726" y="394" font-size="13" fill="#6b6a5f" text-anchor="end">Quantity</text>
-          <text x="30" y="24" font-size="13" fill="#6b6a5f">Price</text>
-          <path id="dOld" stroke="#4338a8" stroke-width="1.5" stroke-dasharray="6 6" fill="none" opacity="0" />
-          <path id="sOld" stroke="#1a6b4a" stroke-width="1.5" stroke-dasharray="6 6" fill="none" opacity="0" />
-          <path id="dCurve" stroke="#4338a8" stroke-width="3" fill="none" style="transition: d .3s ease" />
-          <path id="sCurve" stroke="#1a6b4a" stroke-width="3" fill="none" style="transition: d .3s ease" />
-          <text id="dLabel" font-size="15" font-weight="600" fill="#4338a8"></text>
-          <text id="sLabel" font-size="15" font-weight="600" fill="#1a6b4a"></text>
-          <line id="pLine" x1="70" x2="730" stroke="#a9a48f" stroke-width="1" stroke-dasharray="3 5" />
-          <line id="gapLine" stroke="#c7502a" stroke-width="4" stroke-linecap="round" opacity="0" />
-          <text id="gapText" font-size="13" font-weight="600" fill="#c7502a" text-anchor="middle" opacity="0"></text>
-          <circle id="qdDot" r="6" fill="#4338a8"></circle>
-          <circle id="qsDot" r="6" fill="#1a6b4a"></circle>
-          <circle id="eqDot" r="7" fill="#22251f"></circle>
-          <text id="eqText" font-size="13" font-weight="600" fill="#22251f"></text>
-        </svg>
-
-        <div class="status-box" id="statusBox">Try moving the slider. Notice the curves stay put while the dots move along them.</div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">Scenario explorer</h2>
-      <div class="scenarios">
-        <div class="scenario-card" data-shift="d+">
-          <h3>Hot weather</h3>
-          <p>People want more ice cream at every price. Demand shifts right.</p>
-        </div>
-        <div class="scenario-card" data-shift="d-">
-          <h3>Cold snap</h3>
-          <p>People want less ice cream at every price. Demand shifts left.</p>
-        </div>
-        <div class="scenario-card" data-shift="s-">
-          <h3>Milk becomes expensive</h3>
-          <p>Production costs rise, so sellers offer less at every price. Supply shifts left.</p>
-        </div>
-        <div class="scenario-card" data-shift="s+">
-          <h3>New machine lowers costs</h3>
-          <p>Firms can produce more at every price. Supply shifts right.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">Quick quiz</h2>
       <div class="quiz">
         <p id="quizPrompt">The price of ice cream rises from RM5 to RM8. What happens on the graph?</p>
         <div class="questions" id="choices"></div>
@@ -341,20 +371,18 @@
     </section>
 
     <footer>
-      Tip: If you get stuck, draw the curve first, then ask whether the change is a price change or a non-price change.
+      Tip: If you get stuck, draw the curve first and ask whether the change is a price change or a non-price change.
     </footer>
   </div>
 
   <script>
-    // --- Sandbox ---
-    let dShift = 0;
-    let sShift = 0;
-    let manualPrice = null;
+    let currentSlide = 0;
+    let manualPrice = 50;
     const X0 = 70, X1 = 730, Y0 = 370, Y1 = 40, QMAX = 112, PMAX = 112;
     const x = q => X0 + (q / QMAX) * (X1 - X0);
     const y = p => Y0 - (p / PMAX) * (Y0 - Y1);
-    const qd = p => 100 - p + dShift;
-    const qs = p => p + sShift;
+    const qd = p => 100 - p;
+    const qs = p => p;
 
     function path(fn) {
       const pts = [];
@@ -367,111 +395,121 @@
 
     const $ = id => document.getElementById(id);
 
-    function render() {
-      const eqP = (100 + dShift - sShift) / 2;
-      const eqQ = qd(eqP);
-      const P = manualPrice ?? eqP;
+    function renderGraph() {
+      const P = manualPrice;
       const QD = Math.max(0, qd(P));
       const QS = Math.max(0, qs(P));
+      const eqP = 50;
+      const eqQ = 50;
+      const insightEl = currentSlide === 0 ? $('insight') : currentSlide === 1 ? $('insight2') : $('insight3');
 
-      $('dCurve').setAttribute('d', path(qd));
-      $('sCurve').setAttribute('d', path(qs));
-      $('dOld').setAttribute('d', path(p => 100 - p));
-      $('dOld').setAttribute('opacity', dShift ? 0.55 : 0);
-      $('sOld').setAttribute('d', path(p => p));
-      $('sOld').setAttribute('opacity', sShift ? 0.55 : 0);
-
-      const dLabelX = Math.min(x(qd(16)) + 10, 700);
-      $('dLabel').setAttribute('x', dLabelX);
-      $('dLabel').setAttribute('y', y(16) + 5);
-      $('dLabel').textContent = dShift ? 'D′' : 'D';
-
-      const sLabelX = Math.min(x(qs(98)) + 10, 700);
-      $('sLabel').setAttribute('x', sLabelX);
-      $('sLabel').setAttribute('y', y(98) + 5);
-      $('sLabel').textContent = sShift ? 'S′' : 'S';
-
-      $('pLine').setAttribute('y1', y(P));
-      $('pLine').setAttribute('y2', y(P));
-      $('qdDot').setAttribute('cx', x(QD));
-      $('qdDot').setAttribute('cy', y(P));
-      $('qsDot').setAttribute('cx', x(QS));
-      $('qsDot').setAttribute('cy', y(P));
-
-      const gap = Math.abs(QD - QS);
-      if (gap > 1.5) {
-        $('gapLine').setAttribute('x1', x(Math.min(QD, QS)) + 8);
-        $('gapLine').setAttribute('x2', x(Math.max(QD, QS)) - 8);
-        $('gapLine').setAttribute('y1', y(P));
-        $('gapLine').setAttribute('y2', y(P));
-        $('gapLine').setAttribute('opacity', 0.9);
-        $('gapText').setAttribute('x', (x(QD) + x(QS)) / 2);
-        $('gapText').setAttribute('y', y(P) - 12);
-        $('gapText').textContent = QD > QS ? 'shortage' : 'surplus';
-        $('gapText').setAttribute('opacity', 1);
-      } else {
+      if (currentSlide === 0) {
+        $('dCurve').setAttribute('d', path(qd));
+        $('dCurve').setAttribute('opacity', 1);
+        $('sCurve').setAttribute('opacity', 0);
+        $('dLabel').setAttribute('x', Math.min(x(qd(16)) + 10, 700));
+        $('dLabel').setAttribute('y', y(16) + 5);
+        $('dLabel').textContent = 'D';
+        $('sLabel').textContent = '';
+        $('pLine').setAttribute('y1', y(P));
+        $('pLine').setAttribute('y2', y(P));
+        $('qdDot').setAttribute('cx', x(QD));
+        $('qdDot').setAttribute('cy', y(P));
+        $('qsDot').setAttribute('opacity', 0);
+        $('eqDot').setAttribute('opacity', 0);
         $('gapLine').setAttribute('opacity', 0);
         $('gapText').setAttribute('opacity', 0);
+        insightEl.textContent = `At RM ${P}, buyers want about ${Math.round(QD)} units. Move the slider to see how quantity demanded changes along the same curve.`;
+      } else if (currentSlide === 1) {
+        $('sCurve').setAttribute('d', path(qs));
+        $('sCurve').setAttribute('opacity', 1);
+        $('dCurve').setAttribute('opacity', 0);
+        $('sLabel').setAttribute('x', Math.min(x(qs(98)) + 10, 700));
+        $('sLabel').setAttribute('y', y(98) + 5);
+        $('sLabel').textContent = 'S';
+        $('dLabel').textContent = '';
+        $('pLine').setAttribute('y1', y(P));
+        $('pLine').setAttribute('y2', y(P));
+        $('qsDot').setAttribute('cx', x(QS));
+        $('qsDot').setAttribute('cy', y(P));
+        $('qdDot').setAttribute('opacity', 0);
+        $('eqDot').setAttribute('opacity', 0);
+        $('gapLine').setAttribute('opacity', 0);
+        $('gapText').setAttribute('opacity', 0);
+        insightEl.textContent = `At RM ${P}, sellers offer about ${Math.round(QS)} units. Move the slider to see how quantity supplied changes along the supply curve.`;
+      } else {
+        $('dCurve').setAttribute('d', path(qd));
+        $('sCurve').setAttribute('d', path(qs));
+        $('dCurve').setAttribute('opacity', 1);
+        $('sCurve').setAttribute('opacity', 1);
+        $('dLabel').setAttribute('x', Math.min(x(qd(16)) + 10, 700));
+        $('dLabel').setAttribute('y', y(16) + 5);
+        $('dLabel').textContent = 'D';
+        $('sLabel').setAttribute('x', Math.min(x(qs(98)) + 10, 700));
+        $('sLabel').setAttribute('y', y(98) + 5);
+        $('sLabel').textContent = 'S';
+        $('pLine').setAttribute('y1', y(P));
+        $('pLine').setAttribute('y2', y(P));
+        $('qdDot').setAttribute('cx', x(QD));
+        $('qdDot').setAttribute('cy', y(P));
+        $('qsDot').setAttribute('cx', x(QS));
+        $('qsDot').setAttribute('cy', y(P));
+        $('qdDot').setAttribute('opacity', 1);
+        $('qsDot').setAttribute('opacity', 1);
+        $('eqDot').setAttribute('cx', x(eqQ));
+        $('eqDot').setAttribute('cy', y(eqP));
+        $('eqDot').setAttribute('opacity', 1);
+        $('eqText').setAttribute('x', Math.min(x(eqQ) + 14, 560));
+        $('eqText').setAttribute('y', y(eqP) - 12);
+        $('eqText').textContent = `Equilibrium: P = RM ${Math.round(eqP)}, Q = ${Math.round(eqQ)}`;
+        const gap = Math.abs(QD - QS);
+        if (gap > 1.5) {
+          $('gapLine').setAttribute('x1', x(Math.min(QD, QS)) + 8);
+          $('gapLine').setAttribute('x2', x(Math.max(QD, QS)) - 8);
+          $('gapLine').setAttribute('y1', y(P));
+          $('gapLine').setAttribute('y2', y(P));
+          $('gapLine').setAttribute('opacity', 0.9);
+          $('gapText').setAttribute('x', (x(QD) + x(QS)) / 2);
+          $('gapText').setAttribute('y', y(P) - 12);
+          $('gapText').textContent = QD > QS ? 'shortage' : 'surplus';
+          $('gapText').setAttribute('opacity', 1);
+        } else {
+          $('gapLine').setAttribute('opacity', 0);
+          $('gapText').setAttribute('opacity', 0);
+        }
+        insightEl.textContent = P < 50 ? `Price below equilibrium creates a shortage. Buyers want more than sellers offer.` : P > 50 ? `Price above equilibrium creates a surplus. Sellers offer more than buyers want.` : `At equilibrium, the market clears and quantity demanded matches quantity supplied.`;
       }
-
-      $('eqDot').setAttribute('cx', x(eqQ));
-      $('eqDot').setAttribute('cy', y(eqP));
-      $('eqText').setAttribute('x', Math.min(x(eqQ) + 14, 560));
-      $('eqText').setAttribute('y', y(eqP) - 12);
-      $('eqText').textContent = `Equilibrium: P = RM ${Math.round(eqP)}, Q = ${Math.round(eqQ)}`;
 
       $('priceOut').textContent = `RM ${Math.round(P)}`;
       $('price').value = Math.round(P);
-
-      const status = $('statusBox');
-      if (QD - QS > 1.5) {
-        status.textContent = `Shortage of ${Math.round(QD - QS)}. Buyers compete and bid the price up.`;
-        status.style.background = '#fbe8df';
-        status.style.color = '#8a3517';
-      } else if (QS - QD > 1.5) {
-        status.textContent = `Surplus of ${Math.round(QS - QD)}. Sellers cut price to clear stock.`;
-        status.style.background = '#faf0d8';
-        status.style.color = '#5a430e';
-      } else {
-        status.textContent = 'At equilibrium. The market clears and there is no shortage or surplus.';
-        status.style.background = '#f8f2dd';
-        status.style.color = '#5a430e';
-      }
+      $('price2').value = Math.round(P);
+      $('priceOut2').textContent = `RM ${Math.round(P)}`;
+      $('price3').value = Math.round(P);
+      $('priceOut3').textContent = `RM ${Math.round(P)}`;
     }
 
-    function clearButtons() {
-      document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'));
+    function showSlide(index) {
+      currentSlide = index;
+      document.querySelectorAll('.slide').forEach((slide, i) => slide.classList.toggle('active', i === index));
+      document.querySelectorAll('.nav-btn').forEach((btn, i) => btn.classList.toggle('active', i === index));
+      document.querySelectorAll('[data-prev]').forEach(btn => btn.disabled = index === 0);
+      document.querySelectorAll('[data-next]').forEach(btn => btn.disabled = index === 2);
+      renderGraph();
     }
 
-    function applyShift(which) {
-      manualPrice = null;
-      clearButtons();
-      if (which === 'd+') {
-        dShift = 18; sShift = 0;
-      } else if (which === 'd-') {
-        dShift = -18; sShift = 0;
-      } else if (which === 's-') {
-        dShift = 0; sShift = -18;
-      } else if (which === 's+') {
-        dShift = 0; sShift = 18;
-      }
-      document.querySelector(`[data-shift="${which}"]`)?.classList.add('active');
-      render();
-    }
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.addEventListener('click', () => showSlide(Number(btn.dataset.slide))));
+    document.querySelectorAll('[data-next]').forEach(btn => btn.addEventListener('click', () => showSlide(Math.min(2, currentSlide + 1))));
+    document.querySelectorAll('[data-prev]').forEach(btn => btn.addEventListener('click', () => showSlide(Math.max(0, currentSlide - 1))));
 
-    document.querySelectorAll('.scenario-btn').forEach(btn => btn.addEventListener('click', () => applyShift(btn.dataset.shift)));
-    document.querySelectorAll('.scenario-card').forEach(card => card.addEventListener('click', () => applyShift(card.dataset.shift)));
-
-    $('price').addEventListener('input', e => {
-      manualPrice = Number(e.target.value);
-      render();
+    ['price', 'price2', 'price3'].forEach(id => {
+      $(id).addEventListener('input', e => {
+        manualPrice = Number(e.target.value);
+        renderGraph();
+      });
     });
 
-    $('resetBtn').addEventListener('click', () => {
-      dShift = 0; sShift = 0; manualPrice = null; clearButtons(); render();
-    });
-
-    render();
+    renderGraph();
+    showSlide(0);
 
     // --- Quiz ---
     const questions = [
@@ -512,7 +550,7 @@
       answered = false;
       feedbackEl.className = 'feedback';
       feedbackEl.textContent = '';
-      nextBtn.style.display = 'none';
+      nextBtn.style.display = 'inline-block';
       promptEl.textContent = questions[qIndex].prompt;
       choicesEl.innerHTML = '';
       options.forEach(label => {
@@ -524,7 +562,7 @@
       scoreEl.textContent = `Score: ${score} / ${qIndex}`;
     }
 
-    function answerQuestion(label, button) {
+    function answerQuestion(label) {
       if (answered) return;
       answered = true;
       const correct = questions[qIndex].answer;
@@ -542,7 +580,6 @@
         feedbackEl.textContent = `Not quite. ${correct}. ${questions[qIndex].why}`;
       }
       scoreEl.textContent = `Score: ${score} / ${qIndex + 1}`;
-      nextBtn.style.display = 'inline-block';
       nextBtn.textContent = qIndex === questions.length - 1 ? 'See result →' : 'Next question →';
     }
 
